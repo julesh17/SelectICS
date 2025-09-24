@@ -1,8 +1,8 @@
 import streamlit as st
-from icalendar import Calendar, Event
+from icalendar import Calendar
 from datetime import datetime, date
-import pytz
 import io
+import os
 
 st.title("Filtrage d'événements ICS")
 
@@ -30,7 +30,7 @@ if uploaded_file is not None:
         end_date = st.date_input("Date de fin", max_date, min_value=min_date, max_value=max_date)
 
         if start_date > end_date:
-            st.error("La date de début doit être avant la date de fin.")
+            st.warning("⚠️ La date de début est postérieure à la date de fin. Veuillez corriger votre sélection.")
         else:
             if st.button("Générer le nouveau fichier .ics"):
                 # Nouveau calendrier
@@ -49,11 +49,17 @@ if uploaded_file is not None:
                     if start_date <= dt_event <= end_date:
                         new_cal.add_component(component)
 
+                # Construction du nom du fichier
+                base_name, _ = os.path.splitext(uploaded_file.name)
+                start_str = start_date.strftime("%d_%m_%Y")
+                end_str = end_date.strftime("%d_%m_%Y")
+                new_filename = f"{base_name}_du_{start_str}_au_{end_str}.ics"
+
                 # Écriture dans un buffer
                 output = io.BytesIO(new_cal.to_ical())
                 st.download_button(
-                    label="Télécharger le fichier filtré",
+                    label="📥 Télécharger le fichier filtré",
                     data=output,
-                    file_name="filtre.ics",
+                    file_name=new_filename,
                     mime="text/calendar"
                 )
