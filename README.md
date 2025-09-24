@@ -1,19 +1,12 @@
-# 🎈 Blank app template
+# ICS Event Filter - Streamlit App
 
-A simple Streamlit app template for you to modify!
+Cette application Streamlit permet de filtrer les événements d’un fichier **.ics** (calendrier) entre deux dates, et de générer un nouveau fichier contenant uniquement les événements compris dans cet intervalle.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://blank-app-template.streamlit.app/)
+---
 
-### How to run it on your own machine
+## 🚀 Fonctionnalités
 
-1. Install the requirements
-
-   ```
-   $ pip install -r requirements.txt
-   ```
-
-2. Run the app
-
-   ```
-   $ streamlit run streamlit_app.py
-   ```
+- Import d’un fichier `.ics`
+- Sélection d’une **date de début** et d’une **date de fin**
+- Filtrage automatique des événements compris entre ces deux bornes
+- Téléchargement d’un fichier `.ics` filtré
